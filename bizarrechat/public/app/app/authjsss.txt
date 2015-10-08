@@ -1,0 +1,202 @@
+app.controller('alertCtrl', function($scope){});
+app.controller('alertCtrlForget', function($scope){});
+
+
+
+app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+	$scope.data = { show: false };
+	
+	$scope.doReg={firstname:'',email:'',password:''};
+	$scope.doReg = function () 
+	{
+	 firstname = $scope.signup.firstname;
+	 email = $scope.signup.email;
+	 password = $scope.signup.password;
+	 $http.post('RegisterUser', { firstname: firstname, email : email, password: password}).then(function (results) 
+	 {
+	 console.log(results.data);
+	 if(results.data=='success')
+	 {
+	 console.log('Register Success');
+	 //$location.path('dashboard');
+	 $location.path('registersuccess');
+	 }
+	 else
+	 {
+	 console.log('error5');
+	 }
+	 });
+    };
+	
+	
+	$scope.doVerify={email:'',password:''};
+	$scope.doVerify = function () 
+	{
+	 email = $scope.verify.useremail;
+	 password = $scope.verify.password;
+	 $http.post('VerifyUser', { email: email, password: password}).then(function (results) 
+	 {
+	 console.log(results.data);
+	 if(results.data=='success')
+	 {
+	 console.log('Verification Success');
+	 //$location.path('dashboard');
+	 $location.path('registration');
+	 }
+	 else
+	 {
+	 console.log('error4');
+	 }
+	 });
+    };
+	
+
+ 
+	 $http.post('AuthenticateUser', { email : email, password: password}).then(function (results) 
+	 {
+	 	
+	 if(results.data=='success')
+	 {
+	 	$location.path('dashboard');
+	 	
+	 $scope.data.show = false; //making it false
+
+	$scope.doForget={email:''};
+	$scope.doForget = function () 
+	{
+	 email = $scope.forget.email;
+	 $http.post('ResetPassword', { email: email}).then(function (results) 
+	 {
+	 if(results.data=='success')
+	 {
+	 $scope.data.msg = 'Email Password Resetted, Check yourNo Email Found'
+	 $location.path('login');
+	 }
+	 else
+	 {
+	 $scope.data.show = true
+
+	 $scope.data.msg = 'No Email Found'
+
+
+	 console.log('error3');
+	 }
+	 });
+    };
+	
+	
+	$scope.doCompleteRegister={day:'',month:'', year:'', code:'', phone:'', city:'', sex:'',  interest:'', seeking:'',useremail:''};
+	$scope.doCompleteRegister = function () 
+	{
+	
+	 useremail = $scope.register.useremail;
+	 day = $scope.register.day;
+	 month = $scope.register.month;
+	 year = $scope.register.year;
+	 code = $scope.register.code;
+	 phone = $scope.register.phone;
+	 city = $scope.register.city;
+	 sex = $scope.register.sex;
+	 
+	 interest = $scope.register.interest;
+	 seeking = $scope.register.seeking;
+	 dob = year+'-'+month+'-'+day;
+	 
+	 
+	 $http.post('CompleteRegistration', { useremail: useremail, dob: dob,  phone_code: code, phone_number: phone, city: city, gender:sex, interest: interest, seeking: seeking}).then(function (results) 
+	 {
+	 console.log(results.data);
+	 if(results.data=='success')
+	 {
+	 $location.path('dashboard');
+	 }
+	 else
+	 {
+	 console.log('error2');
+	 }
+	 });
+    };
+	
+	
+
+	$scope.doLog = function () 
+	{
+	 email = $scope.login.email;
+	 password = $scope.login.password;
+	 $scope.data.show = false; //making it false
+	 $http.post('AuthenticateUser', { email : email, password: password}).then(function (results) 
+	 {
+	 	$scope.data.show = true
+	 if(results.data=='success')
+	 {
+	 	$location.path('dashboard');
+	 	//$scope.data.msg = 'Successfully triggered'
+	 }
+	 else
+	 {
+		$scope.data.msg = 'Invalid Username or Password'
+	 }
+	 });
+    };
+	
+	$scope.logout = function () {
+	$http.post('Logout', { }).then(function (results) 
+	 {
+	 if(results.data=='success')
+	 {
+	 $location.path('login');
+	 }
+	 else
+	 {
+	 console.log('error1');
+	 }
+	 });
+	 
+    }
+	
+	
+	
+	
+    $scope.login = {};
+    $scope.signup = {};
+    $scope.doLogin = function (customer) {
+        Data.post('login', {
+            customer: customer
+        }).then(function (results) {
+            Data.toast(results);
+            if (results.status == "success") {
+                $location.path('dashboard');
+            }
+        });
+    };
+	
+
+	
+	
+	
+    $scope.signup = {email:'',password:'',name:'',phone:'',address:''};
+    $scope.signUp = function (customer) {
+        Data.post('signUp', {
+            customer: customer
+        }).then(function (results) {
+            Data.toast(results);
+            if (results.status == "success") {
+                $location.path('dashboard');
+            }
+        });
+    };
+    
+	
+	$scope.forget = {email:''};
+    $scope.forget = function () {
+	console.log('ffd');
+        Data.get('forget').then(function (results) 
+        {
+            console.log('aaaaaaaa');
+            return false;
+            console.log('bbbbbbb');
+        });
+    }
+
+
+});
