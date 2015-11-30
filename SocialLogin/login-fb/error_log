@@ -1,0 +1,4 @@
+[30-Nov-2015 15:24:26 Asia/Kolkata] PHP Fatal error:  Call to a member function fetch_row() on a non-object in /home/sysaxiom/public_html/test/fb/index.php on line 63
+[30-Nov-2015 15:25:37 Asia/Kolkata] PHP Fatal error:  Call to a member function fetch_row() on a non-object in /home/sysaxiom/public_html/test/fb/index.php on line 63
+[30-Nov-2015 15:26:35 Asia/Kolkata] PHP Fatal error:  Call to a member function fetch_row() on a non-object in /home/sysaxiom/public_html/test/fb/index.php on line 63
+[30-Nov-2015 15:27:08 Asia/Kolkata] PHP Fatal error:  Call to a member function fetch_row() on a non-object in /home/sysaxiom/public_html/test/fb/index.php on line 63

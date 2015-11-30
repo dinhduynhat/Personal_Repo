@@ -1,0 +1,1 @@
+[30-Nov-2015 13:03:27 Asia/Kolkata] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'xxxxxxxxx'@'localhost' (using password: YES) in /home/sysaxiom/public_html/test/google-login-api/index.php on line 85
